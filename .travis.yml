@@ -1,0 +1,91 @@
+language: c++
+compiler: clang
+sudo: required
+dist: trusty
+
+
+addons:
+  apt:
+    sources:
+    - llvm-toolchain-trusty-6.0
+    - ubuntu-toolchain-r-test
+    update: true
+    packages:
+    - libopenblas-dev
+    - liblapack3
+    - liblapack-dev
+    - clang-6.0
+
+
+cache:
+  directories:
+  - "/usr/local/Homebrew/.git/"
+  - "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask/.git"
+
+before_install:
+  - |
+    if [ "$TRAVIS_OS_NAME" == "osx" ]; then
+      echo "Updating homebrew..."
+      brew update
+      echo "Updated. Installing bunde"
+      brew bundle
+      export PATH="/Users/travis/.pyenv/shims:${PATH}"
+      export CXX=/usr/local/opt/llvm/bin/clang++
+    fi
+  - |
+    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+      cd /opt/pyenv/ && git fetch && git checkout v1.2.7 && cd -
+    fi
+  - echo $(${CXX} --version)
+  - pyenv install $PYTHON_VERSION -s
+  - pyenv global $PYTHON_VERSION
+  - python --version
+  - pip install numpy wheel
+  - export LD_LIBRARY_PATH=/usr/local/clang/lib:$LD_LIBRARY_PATH
+
+script:
+  - export OMP_NUM_THREADS=4
+  - cd faiss/
+  - ./configure
+  - make -j2
+  - make misc/test_blas && ./misc/test_blas
+  - make py
+  - sudo -H PATH="${PATH}" make install
+  - make demos && ./demos/demo_ivfpq_indexing
+  - cd python/
+  - python -c "import faiss"
+  - python -c "import faiss, numpy; faiss.Kmeans(10, 20).train(numpy.random.rand(1000,
+    10).astype('float32'))"
+  - cp $TRAVIS_BUILD_DIR/setup.py .
+  - |
+    cat <<EOF > setup.cfg
+    [bdist_wheel]
+    plat-name=$(python -c "from wheel.pep425tags import get_platform; print(get_platform().replace('linux', 'manylinux1'))")
+    EOF
+
+matrix:
+  include:
+  - os: osx
+    env: PYTHON_VERSION=2.7.15
+    osx_image: xcode9.2
+  - os: osx
+    env: PYTHON_VERSION=3.6.6
+    osx_image: xcode9.2
+
+osx_image: xcode9.4
+
+os:
+- osx
+- linux
+
+env:
+- PYTHON_VERSION=3.6.6
+- PYTHON_VERSION=2.7.15
+
+deploy:
+  provider: pypi
+  user: "orf"
+  distributions: "bdist_wheel"
+  skip_cleanup: true
+  password:
+    secure: grf19lixzubff18kXa63gtbfIwZRQzr6MBKOEXC3R4iP2j6VSZeCG4nguF1+1WzvIrkfzQhYshlMBmOvYrAAaeC+65UTFjhrj/DjYoRNrvEr4iaQghgGU6+j8Ww+RXqXuTFbX8u2Kjfqao4Tr2bQL9VxXP6N2nxSF2f3cu9bjywr+5YNYuMpG80wc4NfpU+qxs3ko2IORdtiXd9yQivloyj3X2ns3L9v8jnAnhOjSFj0Lfux97av8A51HwxPTf8rXlYWMj/AAGhgmMqm8b0sb/92RB40Cz6Noud2mVxzbpvY+Yrb6GXWly5FiJPbnOM38asuqp4v6JRC09BilGOeCUNOtwJ6jfcXEj5y4cpOJ9iJF8M4g2r2YSfgTuFyAIK0WZu8/Eq1C6Wb0uvPHdJ4+dMc1DgvcpbaQPakyZX9d1EiA9VNoMDPDvqCtNxW1L86UiW5C3Mhy5P0if61cqiTGPGZBCKR2v0Jps10znuRAJUD+n3jO1xLllAOnHYmG0yiD0LGdODZe4HxAVz6ikdweXCh+Spofu5xdqQLegfFZE+MhK+SShSRNOsozuaoDhVngZcoIwqCy1luZnq09pPCft8kFwmt6rX/tUpuV8pETIU5Nek0jHPdmC1rXFbWadp4gjBMJkUVWXBzBxN4p+94s9v7nrBro8IGcAV41vP02wE=
