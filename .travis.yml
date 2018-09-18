@@ -1,21 +1,15 @@
 language: c++
 compiler: clang
-sudo: required
-dist: trusty
-
 
 addons:
   apt:
     sources:
-    - llvm-toolchain-trusty-6.0
-    - ubuntu-toolchain-r-test
     update: true
     packages:
     - libopenblas-dev
     - liblapack3
     - liblapack-dev
-    - clang-6.0
-
+    - clang
 
 cache:
   directories:
@@ -36,7 +30,6 @@ before_install:
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       cd /opt/pyenv/ && git fetch && git checkout v1.2.7 && cd -
     fi
-  - echo $(${CXX} --version)
   - pyenv install $PYTHON_VERSION -s
   - pyenv global $PYTHON_VERSION
   - python --version
@@ -48,20 +41,20 @@ script:
   - cd faiss/
   - ./configure
   - make -j2
-  - make misc/test_blas && ./misc/test_blas
   - make py
+  - make test
+  - make misc/test_blas && ./misc/test_blas
   - sudo -H PATH="${PATH}" make install
   - make demos && ./demos/demo_ivfpq_indexing
   - cd python/
-  - python -c "import faiss"
-  - python -c "import faiss, numpy; faiss.Kmeans(10, 20).train(numpy.random.rand(1000,
-    10).astype('float32'))"
+  - python -c "import faiss, numpy; faiss.Kmeans(10, 20).train(numpy.random.rand(1000, 10).astype('float32'))"
   - cp $TRAVIS_BUILD_DIR/setup.py .
   - |
     cat <<EOF > setup.cfg
     [bdist_wheel]
     plat-name=$(python -c "from wheel.pep425tags import get_platform; print(get_platform().replace('linux', 'manylinux1'))")
     EOF
+  - cat setup.py
 
 matrix:
   include:
@@ -73,6 +66,7 @@ matrix:
     osx_image: xcode9.2
 
 osx_image: xcode9.4
+sudo: true
 
 os:
 - osx
