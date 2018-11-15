@@ -9,3 +9,5 @@ Prebuilt `.whl` files for MacOS + Linux of the [Facebook FAISS library](https://
 You can install this with `pip install faiss-prebuilt`.
 
 You also need to have `libomp` and `libopenblas` available. On ubuntu you can install these with `apt install libopenblas-base libomp-dev`
+
+On MacOS: `brew install libomp openblas`
