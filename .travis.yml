@@ -2,6 +2,9 @@ language: c++
 compiler: clang
 
 addons:
+  homebrew:
+    brewfile: true
+    update: true
   apt:
     sources:
     update: true
@@ -19,10 +22,6 @@ cache:
 before_install:
   - |
     if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-      echo "Updating homebrew..."
-      brew update
-      echo "Updated. Installing bunde"
-      brew bundle
       export PATH="/Users/travis/.pyenv/shims:${PATH}"
       export CXX=/usr/local/opt/llvm/bin/clang++
     fi
