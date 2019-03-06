@@ -20,6 +20,7 @@ cache:
   - "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask/.git"
 
 before_install:
+  - git clone https://github.com/momo-lab/pyenv-install-latest.git "$(pyenv root)"/plugins/pyenv-install-latest
   - |
     if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       export PATH="/Users/travis/.pyenv/shims:${PATH}"
@@ -27,9 +28,9 @@ before_install:
     fi
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      cd /opt/pyenv/ && git fetch && git checkout v1.2.8 && cd -
+      cd /opt/pyenv/ && git fetch && git checkout v1.2.9 && cd -
     fi
-  - pyenv install $PYTHON_VERSION -s
+  - pyenv install-latest -s $PYTHON_VERSION
   - pyenv global $PYTHON_VERSION
   - python --version
   - pip install numpy wheel
@@ -58,13 +59,13 @@ script:
 matrix:
   include:
   - os: osx
-    env: PYTHON_VERSION=3.6.8
+    env: PYTHON_VERSION=3.6
     osx_image: xcode9.4
   - os: osx
-    env: PYTHON_VERSION=3.5.6
+    env: PYTHON_VERSION=3.5
     osx_image: xcode9.4
   - os: osx
-    env: PYTHON_VERSION=3.7.2
+    env: PYTHON_VERSION=3.7
     osx_image: xcode9.4
 
 osx_image: xcode10.1
@@ -75,9 +76,9 @@ os:
 - linux
 
 env:
-- PYTHON_VERSION=3.5.6
-- PYTHON_VERSION=3.6.8
-- PYTHON_VERSION=3.7.2
+- PYTHON_VERSION=3.5
+- PYTHON_VERSION=3.6
+- PYTHON_VERSION=3.7
 
 deploy:
   provider: pypi
