@@ -20,7 +20,7 @@ cache:
   - "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask/.git"
 
 before_install:
-  - git clone https://github.com/momo-lab/pyenv-install-latest.git "$(pyenv root)"/plugins/pyenv-install-latest
+  - git clone https://github.com/momo-lab/xxenv-latest.git "$(pyenv root)"/plugins/xxenv-latest
   - |
     if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       export PATH="/Users/travis/.pyenv/shims:${PATH}"
@@ -30,7 +30,7 @@ before_install:
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       cd /opt/pyenv/ && git fetch && git checkout v1.2.9 && cd -
     fi
-  - pyenv install-latest -s $PYTHON_VERSION
+  - pyenv latest install $PYTHON_VERSION
   - pyenv global $PYTHON_VERSION
   - python --version
   - pip install numpy wheel
