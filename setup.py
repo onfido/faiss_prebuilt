@@ -28,7 +28,7 @@ are implemented on the GPU. It is developed by Facebook AI Research.
 """
 setup(
     name='faiss_prebuilt',
-    version='1.5.0',
+    version='1.5.1',
     description='A library for efficient similarity search and clustering of dense vectors',
     long_description=long_description,
     url='https://github.com/facebookresearch/faiss',
@@ -42,7 +42,6 @@ setup(
         'faiss': ['*.so'],
     },
     classifiers=[
-     'Programming Language :: Python :: 2.7',
      'Programming Language :: Python :: 3.5',
      'Programming Language :: Python :: 3.6',
      'Programming Language :: Python :: 3.7'

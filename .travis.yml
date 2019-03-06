@@ -58,13 +58,16 @@ script:
 matrix:
   include:
   - os: osx
-    env: PYTHON_VERSION=2.7.15
-    osx_image: xcode9.2
+    env: PYTHON_VERSION=3.6.8
+    osx_image: xcode9.4
   - os: osx
-    env: PYTHON_VERSION=3.6.6
-    osx_image: xcode9.2
+    env: PYTHON_VERSION=3.5.6
+    osx_image: xcode9.4
+  - os: osx
+    env: PYTHON_VERSION=3.7.2
+    osx_image: xcode9.4
 
-osx_image: xcode9.4
+osx_image: xcode10.1
 sudo: true
 
 os:
@@ -72,8 +75,9 @@ os:
 - linux
 
 env:
-- PYTHON_VERSION=3.6.6
-- PYTHON_VERSION=2.7.15
+- PYTHON_VERSION=3.5.6
+- PYTHON_VERSION=3.6.8
+- PYTHON_VERSION=3.7.2
 
 deploy:
   provider: pypi
