@@ -13,6 +13,7 @@ addons:
     - liblapack3
     - liblapack-dev
     - clang
+    - openssl
 
 cache:
   directories:
