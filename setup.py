@@ -1,5 +1,5 @@
 from __future__ import print_function
-from setuptools import setup
+from setuptools import setup, Distribution
 import os
 import shutil
 
@@ -11,6 +11,12 @@ os.mkdir("faiss")
 shutil.copyfile("faiss.py", "faiss/__init__.py")
 shutil.copyfile("swigfaiss.py", "faiss/swigfaiss.py")
 shutil.copyfile("_swigfaiss.so", "faiss/_swigfaiss.so")
+
+
+class BinaryDistribution(Distribution):
+    def has_ext_modules(foo):
+        return True
+
 
 long_description="""
 *Unofficial prebuilt binary*
@@ -28,7 +34,7 @@ are implemented on the GPU. It is developed by Facebook AI Research.
 """
 setup(
     name='faiss_prebuilt',
-    version='1.5.1',
+    version='1.5.2',
     description='A library for efficient similarity search and clustering of dense vectors',
     long_description=long_description,
     url='https://github.com/facebookresearch/faiss',
@@ -45,5 +51,6 @@ setup(
      'Programming Language :: Python :: 3.5',
      'Programming Language :: Python :: 3.6',
      'Programming Language :: Python :: 3.7'
-    ]
+    ],
+    distclass=BinaryDistribution
 )
