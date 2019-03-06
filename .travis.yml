@@ -31,7 +31,7 @@ before_install:
       cd /opt/pyenv/ && git fetch && git checkout v1.2.9 && cd -
     fi
   - pyenv latest install $PYTHON_VERSION
-  - pyenv global $PYTHON_VERSION
+  - pyenv latest global $PYTHON_VERSION
   - python --version
   - pip install numpy wheel
   - export LD_LIBRARY_PATH=/usr/local/clang/lib:$LD_LIBRARY_PATH
