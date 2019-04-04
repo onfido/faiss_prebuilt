@@ -29,7 +29,7 @@ before_install:
     fi
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      cd /opt/pyenv/ && git fetch && git checkout v1.2.9 && cd -
+      cd /opt/pyenv/ && git fetch && git checkout v1.2.10 && cd -
     fi
   - pyenv latest install $PYTHON_VERSION
   - pyenv latest global $PYTHON_VERSION
