@@ -14,6 +14,7 @@ addons:
     - liblapack-dev
     - clang
     - libssl-dev
+    - swig
 
 cache:
   directories:
@@ -29,7 +30,7 @@ before_install:
     fi
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      cd /opt/pyenv/ && git fetch && git checkout v1.2.10 && cd -
+      cd /opt/pyenv/ && git fetch && git checkout v1.2.11 && cd -
     fi
   - pyenv latest install $PYTHON_VERSION
   - pyenv latest global $PYTHON_VERSION
@@ -73,6 +74,7 @@ matrix:
 
 osx_image: xcode10.1
 sudo: true
+dist: xenial
 
 os:
 - osx
