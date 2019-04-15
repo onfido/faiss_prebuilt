@@ -42,7 +42,7 @@ before_install:
 script:
   - export OMP_NUM_THREADS=4
   - cd faiss/
-  - ./configure
+  - ./configure --without-cuda
   - make -j2
   - make py
   - make test
