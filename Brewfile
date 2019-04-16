@@ -1,2 +1,8 @@
+brew "pkg-config"
+brew "openssl"
+brew "readline"
+brew "libomp"
+brew "lapack"
+brew "pyenv"
 brew "llvm"
 brew "swig"
