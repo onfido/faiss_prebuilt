@@ -70,8 +70,6 @@ before_install:
       export PATH="/usr/local/opt/llvm/bin:$PATH"
       echo $(ls /usr/local/opt/llvm/bin/)
     fi
-  - clang --version
-  - clang++ --version
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       cd /opt/pyenv/ && git fetch && git checkout v1.2.11 && cd -
