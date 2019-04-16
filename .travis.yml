@@ -3,6 +3,7 @@ language: cpp
 env:
   global:
     - OMP_NUM_THREADS=4
+    -
 
 addons:
   homebrew:
@@ -57,7 +58,7 @@ install:
       export CC=/usr/local/opt/llvm/bin/clang CXX=/usr/local/opt/llvm/bin/clang++
     fi
   - git clone https://github.com/momo-lab/xxenv-latest.git "$(pyenv root)"/plugins/xxenv-latest
-  - pyenv latest install $PYTHON_VERSION
+  - pyenv latest install $PYTHON_VERSION -f
   - pyenv latest global $PYTHON_VERSION
   - export PYTHON_CFLAGS="$(python-config --includes)"
   - pip install --upgrade pip
