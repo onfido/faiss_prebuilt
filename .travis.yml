@@ -77,7 +77,6 @@ install:
   - make -j2
   - make -C python
 
-
 script:
   - make test
   - make misc/test_blas && ./misc/test_blas
