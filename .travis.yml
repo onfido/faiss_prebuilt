@@ -6,6 +6,7 @@ dist: xenial
 
 os:
   - linux
+  - osx
 
 env:
   global:
@@ -32,7 +33,22 @@ addons:
       - liblapack-dev
       - clang
       - libssl-dev
-      - swig
+      #- swig
+
+matrix:
+  include:
+    - os: osx
+      env: PYTHON_VERSION=2.7
+      osx_image: xcode9.4
+    - os: osx
+      env: PYTHON_VERSION=3.6
+      osx_image: xcode9.4
+    - os: osx
+      env: PYTHON_VERSION=3.5
+      osx_image: xcode9.4
+    - os: osx
+      env: PYTHON_VERSION=3.7
+      osx_image: xcode9.4
 
 before_install:
   - eval "$MATRIX_EVAL"
