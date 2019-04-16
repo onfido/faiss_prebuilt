@@ -5,7 +5,7 @@ import shutil
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-# make the faiss python package dir
+# make the faiss python package dir. Copied from their setup.py :/
 shutil.rmtree("faiss", ignore_errors=True)
 os.mkdir("faiss")
 shutil.copyfile("faiss.py", "faiss/__init__.py")
