@@ -63,24 +63,27 @@ matrix:
       osx_image: xcode9.3
 
 before_install:
-  - eval "$MATRIX_EVAL"
   - |
     if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       export PATH="/Users/travis/.pyenv/shims:${PATH}"
       export PATH="/usr/local/opt/llvm/bin:$PATH"
-      echo $(ls /usr/local/opt/llvm/bin/)
     fi
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       cd /opt/pyenv/ && git fetch && git checkout v1.2.11 && cd -
     fi
+  - clang --version
+  - clang++ --version
   - git clone https://github.com/momo-lab/xxenv-latest.git "$(pyenv root)"/plugins/xxenv-latest
   - pyenv latest install $PYTHON_VERSION -f
   - pyenv latest global $PYTHON_VERSION
   - export PYTHON_CFLAGS="$(python-config --includes)"
   - pip install --upgrade pip
   - pip install numpy wheel
-
+  
+after_failure:
+  - cat config.log
+  
 install:
   - cd faiss/
   - ./.travis/install.sh
