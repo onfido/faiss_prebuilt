@@ -68,12 +68,10 @@ before_install:
     if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       export PATH="/Users/travis/.pyenv/shims:${PATH}"
       export PATH="/usr/local/opt/llvm/bin:$PATH"
-      export CPPFLAGS="-I$(brew --prefix zlib)/include $CPPFLAGS" 
-      export LDFLAGS="-L/usr/local/opt/llvm/lib"
-      export CPPFLAGS="-I/usr/local/opt/llvm/include"
-      export CXX=/usr/local/opt/llvm/bin/clang++
       echo $(ls /usr/local/opt/llvm/bin/)
     fi
+  - clang --version
+  - clang++ --version
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       cd /opt/pyenv/ && git fetch && git checkout v1.2.11 && cd -
