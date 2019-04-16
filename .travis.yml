@@ -67,6 +67,7 @@ before_install:
     if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       export PATH="/Users/travis/.pyenv/shims:${PATH}"
       export PATH="/usr/local/opt/llvm/bin:$PATH"
+      xcode-select --install
     fi
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
