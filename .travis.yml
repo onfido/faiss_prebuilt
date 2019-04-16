@@ -64,17 +64,17 @@ before_install:
   - clang --version
   - clang++ --version
   - git clone https://github.com/momo-lab/xxenv-latest.git "$(pyenv root)"/plugins/xxenv-latest
+  
+after_failure:
+  - cat config.log
+  
+install:
   - pyenv latest install $PYTHON_VERSION -f
   - pyenv latest global $PYTHON_VERSION
   - pyenv latest local $PYTHON_VERSION
   - export PYTHON_CFLAGS="$(python-config --includes)"
   - pip install --upgrade pip
   - pip install numpy wheel
-  
-after_failure:
-  - cat config.log
-  
-install:
   - cd faiss/
   - ./.travis/install.sh
   - aclocal
