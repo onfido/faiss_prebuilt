@@ -65,6 +65,13 @@ install:
   - make demos && ./demos/demo_ivfpq_indexing
   - cd python/
   - python -c "import faiss, numpy; faiss.Kmeans(10, 20).train(numpy.random.rand(1000, 10).astype('float32'))"
+  - |
+    cat <<EOF > setup.cfg
+    [bdist_wheel]
+    universal = false
+    plat-name=$(python -c "from wheel.pep425tags import get_platform; print(get_platform().replace('linux', 'manylinux1'))")
+    EOF
+  - cat setup.cfg
 
 script:
   - make test
