@@ -67,10 +67,6 @@ before_install:
   - |
     if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       export PATH="/Users/travis/.pyenv/shims:${PATH}"
-      export PATH="/usr/local/opt/llvm/bin:${PATH}"
-      export CC=/usr/local/opt/llvm/bin/clang CXX=/usr/local/opt/llvm/bin/clang++
-      echo $($CC --version)
-      echo $($CXX --version)
     fi
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
