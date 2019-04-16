@@ -68,6 +68,7 @@ before_install:
     if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       export PATH="/Users/travis/.pyenv/shims:${PATH}"
       brew uninstall binutils
+      export PATH="/usr/local/opt/llvm/bin:${PATH}"
       export CPPFLAGS="-I$(brew --prefix zlib)/include $CPPFLAGS" 
     fi
   - |
