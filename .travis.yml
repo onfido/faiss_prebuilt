@@ -1,9 +1,23 @@
 language: cpp
+compiler: clang
+osx_image: xcode10.1
+sudo: true
+dist: xenial
+
+os:
+  - linux
 
 env:
   global:
     - OMP_NUM_THREADS=4
-    -
+    - HOMEBREW_NO_INSTALL_CLEANUP=1
+    # NOTE: Hack, c.f. https://github.com/travis-ci/travis-ci/issues/8613
+    - LD_LIBRARY_PATH="/usr/local/clang/lib"
+  matrix:
+    - PYTHON_VERSION=2.7
+    - PYTHON_VERSION=3.5
+    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.7
 
 addons:
   homebrew:
@@ -19,33 +33,6 @@ addons:
       - clang
       - libssl-dev
       - swig
-
-matrix:
-  include:
-    - os: linux
-      compiler: clang
-      env:
-        - PYTHON_VERSION=2.7
-        # NOTE: Hack, c.f. https://github.com/travis-ci/travis-ci/issues/8613
-        - LD_LIBRARY_PATH="/usr/local/clang/lib"
-    - os: linux
-      compiler: clang
-      env:
-        - PYTHON_VERSION=3.5
-        # NOTE: Hack, c.f. https://github.com/travis-ci/travis-ci/issues/8613
-        - LD_LIBRARY_PATH="/usr/local/clang/lib"
-    - os: linux
-      compiler: clang
-      env:
-        - PYTHON_VERSION=3.6
-        # NOTE: Hack, c.f. https://github.com/travis-ci/travis-ci/issues/8613
-        - LD_LIBRARY_PATH="/usr/local/clang/lib"
-    - os: linux
-      compiler: clang
-      env:
-        - PYTHON_VERSION=3.7
-        # NOTE: Hack, c.f. https://github.com/travis-ci/travis-ci/issues/8613
-        - LD_LIBRARY_PATH="/usr/local/clang/lib"
 
 before_install:
   - eval "$MATRIX_EVAL"
