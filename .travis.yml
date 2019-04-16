@@ -54,6 +54,10 @@ before_install:
       export PATH="/Users/travis/.pyenv/shims:${PATH}"
       export CC=/usr/local/opt/llvm/bin/clang CXX=/usr/local/opt/llvm/bin/clang++
     fi
+  - |
+    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+      cd /opt/pyenv/ && git fetch && git checkout v1.2.11 && cd -
+    fi
   - git clone https://github.com/momo-lab/xxenv-latest.git "$(pyenv root)"/plugins/xxenv-latest
   - pyenv latest install $PYTHON_VERSION -f
   - pyenv latest global $PYTHON_VERSION
