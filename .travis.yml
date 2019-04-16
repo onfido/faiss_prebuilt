@@ -73,7 +73,7 @@ before_install:
       cd /opt/pyenv/ && git fetch && git checkout v1.2.11 && cd -
     fi
   - git clone https://github.com/momo-lab/xxenv-latest.git "$(pyenv root)"/plugins/xxenv-latest
-  - pyenv latest install $PYTHON_VERSION -f
+  - CPPFLAGS="-I$(brew --prefix zlib)/include $CPPFLAGS" pyenv latest install $PYTHON_VERSION -f
   - pyenv latest global $PYTHON_VERSION
   - export PYTHON_CFLAGS="$(python-config --includes)"
   - pip install --upgrade pip
