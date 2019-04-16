@@ -1,6 +1,6 @@
 language: cpp
 compiler: clang
-osx_image: xcode10.1
+osx_image: xcode10.2
 sudo: true
 dist: xenial
 
@@ -49,6 +49,18 @@ matrix:
     - os: osx
       env: PYTHON_VERSION=3.7
       osx_image: xcode9.4
+    - os: osx
+      env: PYTHON_VERSION=2.7
+      osx_image: xcode9.3
+    - os: osx
+      env: PYTHON_VERSION=3.6
+      osx_image: xcode9.3
+    - os: osx
+      env: PYTHON_VERSION=3.5
+      osx_image: xcode9.3
+    - os: osx
+      env: PYTHON_VERSION=3.7
+      osx_image: xcode9.3
 
 before_install:
   - eval "$MATRIX_EVAL"
