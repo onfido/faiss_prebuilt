@@ -68,13 +68,14 @@ before_install:
     if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       export PATH="/Users/travis/.pyenv/shims:${PATH}"
       brew uninstall binutils
+      export CPPFLAGS="-I$(brew --prefix zlib)/include $CPPFLAGS" 
     fi
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       cd /opt/pyenv/ && git fetch && git checkout v1.2.11 && cd -
     fi
   - git clone https://github.com/momo-lab/xxenv-latest.git "$(pyenv root)"/plugins/xxenv-latest
-  - CPPFLAGS="-I$(brew --prefix zlib)/include $CPPFLAGS" pyenv latest install $PYTHON_VERSION -f
+  - pyenv latest install $PYTHON_VERSION -f
   - pyenv latest global $PYTHON_VERSION
   - export PYTHON_CFLAGS="$(python-config --includes)"
   - pip install --upgrade pip
