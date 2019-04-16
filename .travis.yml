@@ -74,7 +74,7 @@ matrix:
 
 osx_image: xcode10.1
 sudo: true
-dist: xenial
+
 
 os:
 - osx
