@@ -9,4 +9,4 @@ brew "pyenv"
 brew "swig"
 brew "pyenv"
 brew "openblas"
-brew "llvm"
+brew "llvm", args: ['with-toolchain']
