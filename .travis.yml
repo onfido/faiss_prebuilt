@@ -86,11 +86,11 @@ script:
 after_script:
   - cp $TRAVIS_BUILD_DIR/setup.py .
   - |
-  cat <<EOF > setup.cfg
-  [bdist_wheel]
-  universal = false
-  plat-name=$(python -c "from wheel.pep425tags import get_platform; print(get_platform().replace('linux', 'manylinux1'))")
-  EOF
+    cat <<EOF > setup.cfg
+    [bdist_wheel]
+    universal = false
+    plat-name=$(python -c "from wheel.pep425tags import get_platform; print(get_platform().replace('linux', 'manylinux1'))")
+    EOF
   - cat setup.cfg
 
 deploy:
