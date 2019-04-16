@@ -1,6 +1,7 @@
 brew "pkg-config"
 brew "openssl"
 brew "readline"
+brew "xz"
 brew "libomp"
 brew "lapack"
 brew "pyenv"
