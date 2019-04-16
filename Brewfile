@@ -7,4 +7,3 @@ brew "pyenv"
 brew "swig"
 brew "pyenv"
 brew "openblas"
-brew "llvm", args: ['with-toolchain']
