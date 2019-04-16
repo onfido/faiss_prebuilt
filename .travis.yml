@@ -92,7 +92,6 @@ after_script:
   plat-name=$(python -c "from wheel.pep425tags import get_platform; print(get_platform().replace('linux', 'manylinux1'))")
   EOF
   - cat setup.cfg
-  - python setup.py bdist_wheel
 
 deploy:
   provider: pypi
