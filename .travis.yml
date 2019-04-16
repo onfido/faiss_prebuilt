@@ -97,6 +97,9 @@ deploy:
   provider: pypi
   user: "orf"
   distributions: "bdist_wheel"
-  skip_cleanup: true
+  skip_cleanup: true  # This is required to prevent the compiled libraries from beign removed
+  on:
+    branch: master
+  skip_existing: true
   password:
     secure: grf19lixzubff18kXa63gtbfIwZRQzr6MBKOEXC3R4iP2j6VSZeCG4nguF1+1WzvIrkfzQhYshlMBmOvYrAAaeC+65UTFjhrj/DjYoRNrvEr4iaQghgGU6+j8Ww+RXqXuTFbX8u2Kjfqao4Tr2bQL9VxXP6N2nxSF2f3cu9bjywr+5YNYuMpG80wc4NfpU+qxs3ko2IORdtiXd9yQivloyj3X2ns3L9v8jnAnhOjSFj0Lfux97av8A51HwxPTf8rXlYWMj/AAGhgmMqm8b0sb/92RB40Cz6Noud2mVxzbpvY+Yrb6GXWly5FiJPbnOM38asuqp4v6JRC09BilGOeCUNOtwJ6jfcXEj5y4cpOJ9iJF8M4g2r2YSfgTuFyAIK0WZu8/Eq1C6Wb0uvPHdJ4+dMc1DgvcpbaQPakyZX9d1EiA9VNoMDPDvqCtNxW1L86UiW5C3Mhy5P0if61cqiTGPGZBCKR2v0Jps10znuRAJUD+n3jO1xLllAOnHYmG0yiD0LGdODZe4HxAVz6ikdweXCh+Spofu5xdqQLegfFZE+MhK+SShSRNOsozuaoDhVngZcoIwqCy1luZnq09pPCft8kFwmt6rX/tUpuV8pETIU5Nek0jHPdmC1rXFbWadp4gjBMJkUVWXBzBxN4p+94s9v7nrBro8IGcAV41vP02wE=
