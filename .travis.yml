@@ -13,12 +13,12 @@ addons:
     sources:
     update: true
     packages:
-    - libopenblas-dev
-    - liblapack3
-    - liblapack-dev
-    - clang
-    - libssl-dev
-    - swig
+      - libopenblas-dev
+      - liblapack3
+      - liblapack-dev
+      - clang
+      - libssl-dev
+      - swig
 
 matrix:
   include:
@@ -49,9 +49,6 @@ matrix:
 
 before_install:
   - eval "$MATRIX_EVAL"
-
-install:
-  - ./faiss/.travis/install.sh
   - |
     if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       export PATH="/Users/travis/.pyenv/shims:${PATH}"
@@ -63,6 +60,10 @@ install:
   - export PYTHON_CFLAGS="$(python-config --includes)"
   - pip install --upgrade pip
   - pip install numpy wheel
+
+install:
+  - cd faiss/
+  - ./.travis/install.sh
   - aclocal
   - autoconf
   - ./configure --without-cuda
