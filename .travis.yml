@@ -25,21 +25,26 @@ matrix:
       compiler: clang
       env:
         - PYTHON_VERSION=2.7
-        - PYTHON_CFLAGS="-I/usr/include/python2.7"
         # NOTE: Hack, c.f. https://github.com/travis-ci/travis-ci/issues/8613
         - LD_LIBRARY_PATH="/usr/local/clang/lib"
-    - os: osx
+    - os: linux
+      compiler: clang
       env:
-        - MATRIX_EVAL="brew update && brew install gcc@6 numpy swig; brew link --overwrite gcc@6; export CC=gcc-6 CXX=g++-6"
-    - os: osx
+        - PYTHON_VERSION=3.5
+        # NOTE: Hack, c.f. https://github.com/travis-ci/travis-ci/issues/8613
+        - LD_LIBRARY_PATH="/usr/local/clang/lib"
+    - os: linux
+      compiler: clang
       env:
-        - MATRIX_EVAL="brew update && brew install llvm numpy swig; brew link --overwrite llvm; export CC=/usr/local/opt/llvm/bin/clang CXX=/usr/local/opt/llvm/bin/clang++"
-        - LDFLAGS="-L/usr/local/opt/llvm/lib"
-        - CPPFLAGS="-I/usr/local/opt/llvm/include"
-  allow_failures:
-    - os: osx
+        - PYTHON_VERSION=3.6
+        # NOTE: Hack, c.f. https://github.com/travis-ci/travis-ci/issues/8613
+        - LD_LIBRARY_PATH="/usr/local/clang/lib"
+    - os: linux
+      compiler: clang
       env:
-        - MATRIX_EVAL="brew update && brew install gcc@6 numpy swig; brew link --overwrite gcc@6; export CC=gcc-6 CXX=g++-6"
+        - PYTHON_VERSION=3.7
+        # NOTE: Hack, c.f. https://github.com/travis-ci/travis-ci/issues/8613
+        - LD_LIBRARY_PATH="/usr/local/clang/lib"
 
 before_install:
   - eval "$MATRIX_EVAL"
