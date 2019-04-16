@@ -4,7 +4,6 @@ brew "readline"
 brew "libomp"
 brew "lapack"
 brew "pyenv"
-brew "llvm", args: ['with-toolchain']
 brew "swig"
 brew "pyenv"
 brew "openblas"
